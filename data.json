@@ -1058,11 +1058,6 @@
     "source": "https://vellum.ai/personal-ai"
    },
    {
-    "label": "LinkedIn (Vellum)",
-    "url": "https://www.linkedin.com/company/vellum-ai",
-    "source": "https://vellum.ai/personal-ai"
-   },
-   {
     "label": "YouTube (Vellum)",
     "url": "https://www.youtube.com/@vellum_ai",
     "source": "https://vellum.ai/personal-ai"
@@ -2712,7 +2707,7 @@
   "sources": [
    "https://opencode.ai/",
    "https://opencode.ai/download",
-   "https://opencode.ai/docs/go/"
+   "https://opencode.ai/go"
   ],
   "checked": "11 October 2026",
   "social": [
@@ -3814,8 +3809,7 @@
   "sources": [
    "https://getstanley.ai/",
    "https://www.getstanley.ai/welcome",
-   "https://apps.apple.com/us/app/stanley-ai-head-of-content/id6754887783",
-   "https://ig.getstanley.ai/"
+   "https://apps.apple.com/us/app/stanley-ai-head-of-content/id6754887783"
   ],
   "checked": "11 October 2026",
   "social": [
