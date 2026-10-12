@@ -538,7 +538,7 @@
       "Uses connectors (linked apps) first",
       "Per-app permissions"
     ],
-    "platform": "Claude Desktop on macOS and Windows.",
+    "platform": "Computer use in Claude Desktop on Mac and Windows. Linux desktop supports other Claude work, but not computer use yet.",
     "pricing": "Computer use is in beta on Pro and Max plans.",
     "fit": "–",
     "pros": [
@@ -601,7 +601,7 @@
     ],
     "priceFrom": 20,
     "storeLinks": {
-      "apple": "https://apps.apple.com/us/app/claude-by-anthropic/id6473753684",
+      "apple": "https://claude.com/download",
       "windows": "https://claude.com/download"
     }
   },
