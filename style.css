@@ -296,3 +296,7 @@ body.pf-wide .pf .pf-relcard{border:0;border-bottom:1px solid var(--border);bord
 
 @media(max-width:799px){.nav .menu-btn i{width:18px;height:2px;display:block;background:currentColor;border-radius:1px;transform-origin:center}}
 @media(max-width:799px) and (prefers-reduced-motion:reduce){.nav .menu-btn[aria-expanded=true] i:first-child{transform:rotate(45deg)!important}.nav .menu-btn[aria-expanded=true] i:last-child{transform:rotate(-45deg)!important}}
+
+/* r77 Shared header across public and account pages */
+@media(min-width:800px) and (max-width:1100px){.nav{padding-left:16px!important;padding-right:16px!important;gap:10px}.menu-panel,.nav-group{gap:2px}.menu-panel a{font-size:11px;padding:0 4px}.menu-panel .nav-cta{padding:0 8px}}
+@media(min-width:800px){.menu-panel a:not(.active):not(.nav-cta){color:var(--muted)}}
