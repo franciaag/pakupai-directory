@@ -19,6 +19,42 @@ Deno.serve(async req=>{
   const r=await fetch(BASE+'/rest/v1/pakupai_profiles?select=user_id&limit=1',{headers:{apikey:SERVICE,authorization:'Bearer '+SERVICE}});
   return J({ok:r.ok},r.ok?200:503);
  }
+ if(path.startsWith('/api/manual/')){
+  if(method!=='POST')return J({error:'not_found'},404);
+  const raw=await req.text();if(raw.length>4096)return J({error:'request_failed'},400);
+  let b:any;try{b=JSON.parse(raw)}catch{return J({error:'request_failed'},400)}
+  const username=String(b.username||'').trim().toLowerCase(),password=String(b.password||'');
+  if(!/^[a-z0-9_]{3,30}$/.test(username))return J({error:'request_failed'},400);
+  const M=async(op:string,args:any)=>{const r=await fetch(BASE+'/rest/v1/rpc/pakupai_manual_rpc',{method:'POST',headers:{apikey:SERVICE,authorization:'Bearer '+SERVICE,'content-type':'application/json'},body:JSON.stringify({op,args})});if(!r.ok)throw Error('database');return r.json()};
+  const H=async(p:string,method:string,b?:any)=>{const r=await fetch(BASE+'/auth/v1/'+p,{method,headers:{apikey:SERVICE,authorization:'Bearer '+SERVICE,'content-type':'application/json'},body:b?JSON.stringify(b):undefined});let d:any={};try{d=await r.json()}catch{}return {ok:r.ok,d}};
+  const action=path.split('/').pop();if(!['signup','login','reset'].includes(action||''))return J({error:'not_found'},404);
+  const ip=await sha('manual-ip:'+String(req.headers.get('x-forwarded-for')||'unknown').split(',')[0].trim());
+  const limit=async(bucket:string,n:number,s:number)=>(await M('limit',{bucket,limit:n,seconds:s})).allowed;
+  if(!await limit(action+':ip:'+ip,action==='signup'?5:12,action==='signup'?3600:300)||!await limit(action+':username:'+await sha(username),action==='signup'?3:8,900))return J({error:'try_later'},429);
+  const strong=password.length>=12&&password.length<=128&&/[a-z]/.test(password)&&/[A-Z]/.test(password)&&/[0-9]/.test(password)&&/[^A-Za-z0-9]/.test(password);
+  if(action!=='login'&&!strong)return J({error:'password_rules'},400);
+  if(action==='signup'){
+   const lease=rnd(24,'lease'),email=rnd(24,'manual')+'@manual.pakupai.invalid',code=rnd(32,'recovery');
+   const reserved=await M('reserve',{username,email,lease});if(!reserved.ok)return J({error:'request_failed'},400);
+   let id='';try{
+    const created=await H('admin/users','POST',{email,password,email_confirm:true,app_metadata:{pakupai_account_type:'manual'}});if(!created.ok)throw Error('create');id=created.d.id;
+    const saved=await M('finish_signup',{username,id,lease,hash:await sha(code)});if(!saved.ok)throw Error('save');
+    return J({ok:true,recovery_code:code},201);
+   }catch{if(id)await H('admin/users/'+id,'DELETE');await M('cancel_signup',{username,lease});return J({error:'request_failed'},400)}
+  }
+  if(action==='login'){
+   const a=await M('lookup',{username});const email=a.email||rnd(24,'absent')+'@manual.pakupai.invalid';
+   const r=await H('token?grant_type=password','POST',{email,password});if(!r.ok||!a.id||r.d.user?.id!==a.id)return J({error:'request_failed'},400);
+   // Recovery may have started while the Auth password request was running.
+   const again=await M('lookup',{username});if(again.id!==a.id)return J({error:'request_failed'},400);
+   return J({access_token:r.d.access_token,refresh_token:r.d.refresh_token});
+  }
+  const code=String(b.code||''),lease=rnd(24,'lease'),next=rnd(32,'recovery');if(code.length>160)return J({error:'request_failed'},400);
+  const a=await M('begin_reset',{username,hash:await sha(code),lease});if(!a.id)return J({error:'request_failed'},400);
+  const r=await H('admin/users/'+a.id,'PUT',{password});if(!r.ok){await M('abort_reset',{username,lease});return J({error:'request_failed'},400)}
+  const finished=await M('finish_reset',{username,lease,hash:await sha(next)});if(!finished.ok)return J({error:'request_failed'},500);
+  return J({ok:true,recovery_code:next});
+ }
  // New private workspaces use Supabase Auth, separately from legacy sessions.
  if(path.startsWith('/api/workspace/')||path.startsWith('/api/workspace-agent/')||path==='/api/workspace-join'){
   const token=(req.headers.get('authorization')||'').replace(/^Bearer\s+/,'');
@@ -40,6 +76,7 @@ Deno.serve(async req=>{
   }
   const ur=await fetch(BASE+'/auth/v1/user',{headers:{apikey:SERVICE,authorization:'Bearer '+token}});
   if(!ur.ok)return J({error:'sign_in_required'},401);const user=await ur.json();
+  const claims=JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));const sr=await fetch(BASE+'/rest/v1/rpc/pakupai_manual_rpc',{method:'POST',headers:{apikey:SERVICE,authorization:'Bearer '+SERVICE,'content-type':'application/json'},body:JSON.stringify({op:'session_valid',args:{session_id:claims.session_id,user_id:user.id}})});if(!sr.ok||!(await sr.json()).ok)return J({error:'sign_in_required'},401);
   if(path==='/api/workspace/invites'&&method==='GET')return result(await W('invites',{user_id:user.id}));
   if(path==='/api/workspace/invites'&&method==='POST'){
    const invite=rnd(24,'wi'),id=crypto.randomUUID(),hours=Math.max(1,Math.min(168,Number(body.hours)||24));
