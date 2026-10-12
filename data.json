@@ -1943,7 +1943,7 @@
       "Several agents can work together",
       "Works inside coding editors"
     ],
-    "platform": "ChatGPT desktop app for Mac, Windows and Linux, plus cloud, coding-editor extension and command-line access, per the maker.",
+    "platform": "ChatGPT desktop app for Mac, Windows and Linux, plus cloud, coding-editor extension and command-line access, per the maker. Linux desktop is in preview for supported Ubuntu, Debian, Fedora and Arch versions.",
     "pricing": "Free ($0) and Go ($8 a month) include the GPT-6 Luna model at standard speed in the desktop app, where it has launched. Plus is $20 a month; Pro has $100, $200 and $500 monthly options. Limits vary by plan and model. Using your own API key is billed separately.",
     "fit": "–",
     "pros": [
