@@ -1,0 +1,17 @@
+name: Backend health
+on:
+  schedule:
+    - cron: '17 11 * * *'
+  workflow_dispatch:
+permissions: {}
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Check database activity and availability
+        run: |
+          for n in 1 2 3; do
+            curl --fail --silent --show-error --max-time 20 https://mzjghyrywypwntumhfbw.supabase.co/functions/v1/pakupai/health | grep -q '"ok":true' || exit 1
+            sleep 2
+          done
