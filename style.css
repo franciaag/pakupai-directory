@@ -180,5 +180,24 @@ body.mk-wide .toolbar.onerow{padding:0 6px}
 .keypanel .keyrow{flex-wrap:wrap;row-gap:2px}
 .keypanel .keyrow .kw{flex-basis:100%;margin-left:32px}
 
+/* r62 unified native toolbar: one bar, iOS-style segmented clusters, scrolls sideways when narrow */
+.toolbar.onerow{flex-wrap:nowrap;justify-content:flex-start;gap:6px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding:2px;margin:0 0 12px}
+.toolbar.onerow::-webkit-scrollbar{display:none}
+.toolbar.onerow::before,.toolbar.onerow::after{content:"";margin:auto}
+.toolbar.onerow>*{flex:0 0 auto;height:auto}
+.toolbar.onerow .nseg{display:flex;align-items:center;gap:1px;background:#d9d6d0;border:1px solid #c9c6bf;border-radius:11px;padding:2px;box-sizing:border-box;height:36px}
+[data-theme=dark] .toolbar.onerow .nseg{background:var(--raised);border-color:var(--border)}
+.toolbar.onerow .nseg button{appearance:none;border:0;background:none;color:var(--ink);height:31px;min-width:31px;padding:0 10px;font-family:inherit;font-size:11.5px;font-weight:600;line-height:1;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;gap:4px;white-space:nowrap;cursor:pointer;margin:0}
+.toolbar.onerow .nseg button[aria-pressed=true],.toolbar.onerow .nseg button.active{background:#fff;color:#000;box-shadow:0 1px 4px #00000040,0 0 0 .5px #00000014}
+[data-theme=dark] .toolbar.onerow .nseg button[aria-pressed=true],[data-theme=dark] .toolbar.onerow .nseg button.active{background:#636366;color:#fff;box-shadow:none}
+.toolbar.onerow .nseg button svg{width:16px;height:16px}
+.toolbar.onerow .nseg .filters,.toolbar.onerow .nseg .mk-sort,.toolbar.onerow .nseg .mk-seg,.toolbar.onerow .nseg .view-toggle{display:flex;align-items:center;gap:1px;background:none;border:0;padding:0;margin:0;height:auto}
+.toolbar.onerow .nseg .searchbar{display:flex;align-items:center;gap:1px;margin:0!important;max-width:none;height:auto}
+.toolbar.onerow .nseg .search-btn{width:auto;height:31px;min-width:31px;border:0;background:none;border-radius:8px}
+.toolbar.onerow .nseg .search-btn svg{width:16px;height:16px}
+.toolbar.onerow .nseg .fn{position:static;margin-left:2px}
+.toolbar.onerow .nseg .search{align-items:center}
+@media (min-width:601px){.toolbar.onerow{gap:8px}.toolbar.onerow .nseg{height:30px;border-radius:10px}.toolbar.onerow .nseg button{height:25px;min-width:25px;padding:0 9px;font-size:12px}.toolbar.onerow .nseg button svg{width:14px;height:14px}.toolbar.onerow .nseg .search-btn{height:25px;min-width:25px}}
+
 /* Preserve grayscale platform facts while price $ icons carry their approved colors. */
 .il-strip .pi-android,.keyg .pi-android{color:inherit;fill:currentColor}
