@@ -1,0 +1,9 @@
+# Linked sign-in methods (r69)
+
+Existing signed-in GitHub accounts can add one username/password and receive one-use rotating recovery code. No user IDs or workspaces are merged, copied or replaced. Existing profile, watchlist, Room and Library stay on the same user ID. No user email is changed; password login looks up the Auth account current email privately server-side so OAuth email refresh does not make a stored username stale.
+
+The backend accepts a live session with an actual GitHub identity. It reserves both user and username, refuses occupied usernames/duplicate methods, applies five attempts/user/hour and password rules. Public clients cannot access methods/credential tables. Password hashing stays in Auth. Credential addition may invalidate the old Auth session, so a new password session is returned after success. No credential/code is saved by the page beyond Auth's session tokens; recovery plaintext is displayed once.
+
+Tests using synthetic provider identities (not real GitHub consent): unauthenticated denial, duplicate method/username conflict, other-user isolation, same Auth ID/workspace/files after username login, recovery reset preserves GitHub identity and files. Browser candidate: confirm mismatch, save-code acknowledgement, linked methods, signout and return by username; 320/390/1280 light/dark no overflow/JS errors. Synthetic users/identities cleaned up; real existing GitHub user untouched.
+
+Blocked direction: provider endpoint returned manual_linking_disabled. Auth configuration read/write denied for available project management credential. Username-first GitHub link control is omitted, not a dead button. Project owner must enable Allow manual linking under Authentication > Sign In / Providers. Once enabled, deploy the signed-in linkIdentity UI, test owner consent/callback and identity conflict before calling two-way linking complete. Source: https://supabase.com/docs/guides/auth/auth-identity-linking

@@ -19,6 +19,26 @@ Deno.serve(async req=>{
   const r=await fetch(BASE+'/rest/v1/pakupai_profiles?select=user_id&limit=1',{headers:{apikey:SERVICE,authorization:'Bearer '+SERVICE}});
   return J({ok:r.ok},r.ok?200:503);
  }
+ if(path==='/api/account/methods'||path==='/api/account/add-username'){
+  const token=(req.headers.get('authorization')||'').replace(/^Bearer\s+/,'');
+  const H=async(p:string,method:string,b?:any)=>{const r=await fetch(BASE+'/auth/v1/'+p,{method,headers:{apikey:SERVICE,authorization:'Bearer '+SERVICE,'content-type':'application/json'},body:b?JSON.stringify(b):undefined});let d:any={};try{d=await r.json()}catch{}return {ok:r.ok,d}};
+  const R=async(name:string,op:string,args:any)=>{const r=await fetch(BASE+'/rest/v1/rpc/'+name,{method:'POST',headers:{apikey:SERVICE,authorization:'Bearer '+SERVICE,'content-type':'application/json'},body:JSON.stringify({op,args})});if(!r.ok)throw Error('database');return r.json()};
+  const ur=await fetch(BASE+'/auth/v1/user',{headers:{apikey:SERVICE,authorization:'Bearer '+token}});if(!ur.ok)return J({error:'sign_in_required'},401);const user=await ur.json();
+  const claims=JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+  if(!(await R('pakupai_manual_rpc','session_valid',{user_id:user.id,session_id:claims.session_id})).ok)return J({error:'sign_in_required'},401);
+  if(path==='/api/account/methods'&&method==='GET')return J(await R('pakupai_methods_rpc','methods',{user_id:user.id}));
+  if(path!=='/api/account/add-username'||method!=='POST')return J({error:'not_found'},404);
+  const raw=await req.text();if(raw.length>4096)return J({error:'request_failed'},400);let b:any;try{b=JSON.parse(raw)}catch{return J({error:'request_failed'},400)}
+  const username=String(b.username||'').trim().toLowerCase(),password=String(b.password||'');
+  if(!/^[a-z0-9_]{3,30}$/.test(username)||!(password.length>=12&&password.length<=128&&/[a-z]/.test(password)&&/[A-Z]/.test(password)&&/[0-9]/.test(password)&&/[^A-Za-z0-9]/.test(password)))return J({error:'password_rules'},400);
+  if(!(await R('pakupai_manual_rpc','limit',{bucket:'add:'+user.id,limit:5,seconds:3600})).allowed)return J({error:'try_later'},429);
+  const lease=rnd(24,'lease'),code=rnd(32,'recovery');
+  if(!(await R('pakupai_methods_rpc','reserve_add',{username,user_id:user.id,email:user.email,lease})).ok)return J({error:'method_or_username_unavailable'},409);
+  const updated=await H('admin/users/'+user.id,'PUT',{password});if(!updated.ok){await R('pakupai_methods_rpc','cancel_add',{user_id:user.id,lease});return J({error:'request_failed'},400)}
+  if(!(await R('pakupai_methods_rpc','finish_add',{user_id:user.id,lease,hash:await sha(code)})).ok)return J({error:'request_failed'},500);
+  const signed=await H('token?grant_type=password','POST',{email:user.email,password});
+  return J({ok:true,recovery_code:code,...(signed.ok?{access_token:signed.d.access_token,refresh_token:signed.d.refresh_token}:{})},201);
+ }
  if(path.startsWith('/api/manual/')){
   if(method!=='POST')return J({error:'not_found'},404);
   const raw=await req.text();if(raw.length>4096)return J({error:'request_failed'},400);
@@ -43,7 +63,7 @@ Deno.serve(async req=>{
    }catch{if(id)await H('admin/users/'+id,'DELETE');await M('cancel_signup',{username,lease});return J({error:'request_failed'},400)}
   }
   if(action==='login'){
-   const a=await M('lookup',{username});const email=a.email||rnd(24,'absent')+'@manual.pakupai.invalid';
+   const a=await M('lookup',{username});const current=a.id?await H('admin/users/'+a.id,'GET'):null;const email=current?.ok?current.d.email:rnd(24,'absent')+'@manual.pakupai.invalid';
    const r=await H('token?grant_type=password','POST',{email,password});if(!r.ok||!a.id||r.d.user?.id!==a.id)return J({error:'request_failed'},400);
    // Recovery may have started while the Auth password request was running.
    const again=await M('lookup',{username});if(again.id!==a.id)return J({error:'request_failed'},400);
