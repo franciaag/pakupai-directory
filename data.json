@@ -1530,7 +1530,7 @@
       "https://www.operaneon.com/id/subscription",
       "https://www.operaneon.com/id/faq"
     ],
-    "checked": "11 October 2026",
+    "checked": "12 October 2026",
     "social": [
       {
         "label": "Discord",
@@ -1546,8 +1546,8 @@
     "tested": false,
     "displayName": "Opera Neon",
     "description": "A browser with AI agents that can research, browse and turn what they find into finished documents.",
-    "logo": "logos/opera-neon.svg",
-    "logoSource": "https://cdn-production-opera-website.operacdn.com/staticfiles/assets/neon/images/favicon/neon-safari-pinned-tab.2ff3aa479bec.svg",
+    "logo": "logos/opera-neon.png",
+    "logoSource": "https://cdn-production-opera-website.operacdn.com/staticfiles/assets/neon/images/favicon/apple-touch-icon-180x180.943a8669f7ea.png",
     "platforms": [
       "apple",
       "windows"
@@ -1759,7 +1759,7 @@
       "Summaries and search"
     ],
     "platform": "Mac only, per the homepage we checked.",
-    "pricing": "Personal use is free. Pro starts at $20 a month; the Max plan shows $30 a month.",
+    "pricing": "Personal use is free. The homepage and upgrade page list Pro at $20/month and Max at $30/month. The maker's FAQ still lists Pro at $10/month or $8/month billed yearly, so confirm the price before paying.",
     "fit": "–",
     "pros": [
       "Workspaces and split screen are built in."
@@ -1768,9 +1768,11 @@
       "Windows and iPhone versions are promised, not out yet."
     ],
     "sources": [
-      "https://sigmaos.com"
+      "https://sigmaos.com",
+      "https://sigmaos.com/upgrade",
+      "https://docs.sigmaos.com/common-questions"
     ],
-    "checked": "11 October 2026",
+    "checked": "12 October 2026",
     "social": [
       {
         "label": "X",
@@ -2102,14 +2104,14 @@
       "Windsurf changed its name; existing plans carry over to Devin Desktop."
     ],
     "sources": [
-      "https://docs.windsurf.com/zh/windsurf/cascade/cascade",
+      "https://docs.devin.ai/desktop/getting-started",
       "https://windsurf.com/blog/windsurf-pricing-plans",
       "https://devin.ai/desktop",
       "https://devin.ai/pricing",
       "https://devin.ai/download",
       "https://docs.devin.ai/desktop/devin-desktop-faq"
     ],
-    "checked": "11 October 2026",
+    "checked": "12 October 2026",
     "social": [
       {
         "label": "X (Cognition)",
@@ -3338,7 +3340,7 @@
       "https://tryorbits.com/",
       "https://tryorbits.com/vs/ollie"
     ],
-    "checked": "11 October 2026",
+    "checked": "12 October 2026",
     "social": [],
     "socialNote": "–",
     "website": "https://tryorbits.com/",
@@ -3383,7 +3385,7 @@
       "https://pally.com/ai",
       "https://pally.com/terms"
     ],
-    "checked": "11 October 2026",
+    "checked": "12 October 2026",
     "social": [
       {
         "label": "X",
@@ -3445,7 +3447,7 @@
       "https://poke.com/faq",
       "https://poke.com/docs"
     ],
-    "checked": "11 October 2026",
+    "checked": "12 October 2026",
     "social": [],
     "socialNote": "–",
     "website": "https://poke.com/",
@@ -3478,7 +3480,7 @@
       "Coordination"
     ],
     "platform": "iPhone Messages, WhatsApp and Telegram. On Android through WhatsApp or Telegram.",
-    "pricing": "–",
+    "pricing": "Free to start, no credit card required.",
     "fit": "–",
     "pros": [
       "Works on iPhone and Android."
@@ -3492,7 +3494,7 @@
       "https://rene.co/terms",
       "https://rene.co/support"
     ],
-    "checked": "11 October 2026",
+    "checked": "12 October 2026",
     "social": [
       {
         "label": "X",
@@ -3525,7 +3527,7 @@
       "Email and follow-ups"
     ],
     "platform": "One conversation that takes text, voice notes, photos and forwarded email.",
-    "pricing": "–",
+    "pricing": "Free during early preview.",
     "fit": "–",
     "pros": [
       "Takes voice notes, photos and forwarded email."
@@ -3537,7 +3539,7 @@
       "https://theszn.ai/",
       "https://theszn.ai/start"
     ],
-    "checked": "11 October 2026",
+    "checked": "12 October 2026",
     "social": [
       {
         "label": "Instagram",
