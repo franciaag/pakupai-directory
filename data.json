@@ -1857,7 +1857,7 @@
       "Can work on long tasks",
       "Use it in the terminal, editor or web"
     ],
-    "platform": "Mac, Linux and Windows. Works in the terminal, in coding editors and on the web.",
+    "platform": "Mac, Windows and Linux. Works in the terminal, coding editors, web, and the Code tab in Claude Desktop. Linux desktop is beta for Ubuntu and Debian.",
     "pricing": "Web plans: Pro is $20 a month, or $200 a year up front (shown as $17 a month). Max plans are $100 a month (5x) and $200 a month (20x). Claude Code is included, with usage limits. Pay-as-you-go API billing is separate. Prices are before tax; mobile prices can differ.",
     "fit": "–",
     "pros": [
@@ -1869,7 +1869,9 @@
     "sources": [
       "https://claude.com/product/claude-code",
       "https://claude.com/pricing",
-      "https://support.claude.com/en/articles/11049741-what-is-the-max-plan"
+      "https://support.claude.com/en/articles/11049741-what-is-the-max-plan",
+      "https://claude.com/download",
+      "https://code.claude.com/docs/en/desktop"
     ],
     "checked": "11 October 2026",
     "social": [
@@ -1916,7 +1918,7 @@
       "web",
       "terminal"
     ],
-    "platformsSource": "https://claude.com/product/claude-code",
+    "platformsSource": "https://code.claude.com/docs/en/desktop",
     "priceKind": "paid",
     "plans": [
       "Pro $20/mo",
@@ -1941,7 +1943,7 @@
       "Several agents can work together",
       "Works inside coding editors"
     ],
-    "platform": "Works in the ChatGPT app, in the cloud and as a coding-editor extension, per the maker.",
+    "platform": "ChatGPT desktop app for Mac, Windows and Linux, plus cloud, coding-editor extension and command-line access, per the maker.",
     "pricing": "Free ($0) and Go ($8 a month) include the GPT-6 Luna model at standard speed in the desktop app, where it has launched. Plus is $20 a month; Pro has $100, $200 and $500 monthly options. Limits vary by plan and model. Using your own API key is billed separately.",
     "fit": "–",
     "pros": [
@@ -1952,7 +1954,8 @@
     ],
     "sources": [
       "https://openai.com/codex/",
-      "https://learn.chatgpt.com/docs/pricing"
+      "https://learn.chatgpt.com/docs/pricing",
+      "https://learn.chatgpt.com/docs/app"
     ],
     "checked": "11 October 2026",
     "social": [
@@ -2008,7 +2011,7 @@
       "linux",
       "terminal"
     ],
-    "platformsSource": "https://learn.chatgpt.com/docs/codex/cli.md",
+    "platformsSource": "https://learn.chatgpt.com/docs/app",
     "plans": [
       "Free $0/mo",
       "Go $8/mo",
@@ -2022,7 +2025,7 @@
     "license": "Apache-2.0 (Codex CLI only)",
     "priceKind": "freemium",
     "storeLinks": {
-      "apple": "https://apps.apple.com/us/app/chatgpt/id6448311069",
+      "apple": "https://learn.chatgpt.com/docs/app",
       "linux": "https://openai.com/codex/",
       "windows": "https://openai.com/codex/"
     }
