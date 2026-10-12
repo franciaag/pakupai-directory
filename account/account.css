@@ -25,3 +25,5 @@
 .account-tool .columns{display:block}.account-tool .row{flex-wrap:wrap}.account-tool .row select{max-width:100%}.account-tool textarea{min-height:180px}.account-tool .row strong{overflow-wrap:anywhere}.account-tool .box input:not([type=checkbox]),.account-tool .box textarea{max-width:100%}
 @media(max-width:799px){.account-tool{top:64px;max-height:calc(100dvh - 64px)}}
 body:has(.account-screen)>.nav{z-index:95}
+.message-receipts{margin-top:6px;line-height:1.6}.chat-status{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.chat-status button{white-space:nowrap;font-size:12px;padding:8px 10px}.agent-setup{margin-top:20px;border-top:1px solid var(--line);padding-top:16px}.agent-setup summary{cursor:pointer;font-weight:600}.agent-setup li{margin:12px 0;overflow-wrap:anywhere}.agent-setup p{overflow-wrap:anywhere}@media(max-width:420px){.chat-status{align-items:flex-start}.chat-status .meta{max-width:170px}}
+.connect-line{padding:12px;border:1px solid var(--line);font-size:13px;line-height:1.6;overflow-wrap:anywhere;margin:12px 0}.agent-setup h3{margin-top:0}.decision{flex-wrap:wrap}.decision .actions{flex-wrap:wrap}

@@ -80,7 +80,7 @@ Deno.serve(async req=>{
   const token=(req.headers.get('authorization')||'').replace(/^Bearer\s+/,'');
   let body:any={};if(method==='POST'){const raw=await req.text();if(raw.length>12000)return J({error:'too_large'},413);try{body=JSON.parse(raw||'{}')}catch{return J({error:'bad_request'},400)}}
   const W=async(op:string,args:any)=>{const r=await fetch(BASE+'/rest/v1/rpc/pakupai_workspace_rpc',{method:'POST',headers:{apikey:SERVICE,authorization:'Bearer '+SERVICE,'content-type':'application/json'},body:JSON.stringify({op,args})});if(!r.ok)throw new Error('database');return r.json()};
-  const result=(r:any)=>J(r,r.error==='rate_limited'?429:r.error==='unauthorized'?401:r.error==='not_found'?404:r.error?403:200);
+  const result=(r:any)=>{if(r.error==='rate_limited')return new Response(JSON.stringify(r),{status:429,headers:{...headers,'content-type':'application/json','retry-after':String(r.retry_after_seconds||60)}});return J(r,r.error==='unauthorized'?401:r.error==='not_found'?404:r.error?403:200)};
   if(path==='/api/workspace-join'&&method==='POST'){
    const invite=clip(body.invite,200),name=clip(body.name,60);if(!invite||!name)return J({error:'invite_and_name_required'},400);
    const key=rnd(24,'wk'),id=crypto.randomUUID(),r=await W('join',{id,name,role:clip(body.role,120),key_hash:await sha(key),invite_hash:await sha(invite)});
@@ -89,9 +89,11 @@ Deno.serve(async req=>{
   if(path.startsWith('/api/workspace-agent/')){
    if(!token)return J({error:'unauthorized'},401);const hash=await sha(token);
    if(path==='/api/workspace-agent/me'&&method==='GET')return result(await W('agent_me',{hash}));
+   if(path==='/api/workspace-agent/check'&&method==='GET')return result(await W('agent_check',{hash,after:Math.max(0,Number(u.searchParams.get('after'))||0)}));
    if(path==='/api/workspace-agent/messages'&&method==='GET')return result(await W('agent_messages',{hash,after:Math.max(0,Number(u.searchParams.get('after'))||0)}));
+   if(path==='/api/workspace-agent/read'&&method==='POST'){const ids=body.message_ids;if(!Array.isArray(ids)||ids.length>100||ids.some((id:any)=>!Number.isSafeInteger(id)||id<1))return J({error:'invalid_message_ids'},400);return result(await W('agent_read',{hash,message_ids:ids}))}
    if(path==='/api/workspace-agent/files'&&method==='GET')return result(await W('agent_files',{hash}));
-   if(path==='/api/workspace-agent/post'&&method==='POST'){const text=clip(body.text,6000);if(!text)return J({error:'text_required'},400);return result(await W('agent_post',{hash,text}))}
+   if(path==='/api/workspace-agent/post'&&method==='POST'){const text=clip(body.text,6000);if(!text)return J({error:'text_required'},400);const reply=body.reply_to_message_id;if(reply!==undefined&&(!Number.isSafeInteger(reply)||reply<1))return J({error:'invalid_reply_to'},400);return result(await W('agent_post',{hash,text,reply_to_message_id:reply}))}
    return J({error:'not_found'},404);
   }
   const ur=await fetch(BASE+'/auth/v1/user',{headers:{apikey:SERVICE,authorization:'Bearer '+token}});
