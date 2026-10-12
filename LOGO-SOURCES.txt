@@ -29,7 +29,7 @@ SigmaOS: https://framerusercontent.com/images/almQbXgcRPeHszIPCrTPJ07yKM.png
 Claude Code: https://assets.claude.com/95a868946ac8a31e5ff832e2899f294aa368b836.png?w=32&h=32
 Codex: https://developers.openai.com/favicon.png
 Cursor Agent: https://cursor.com/marketing-static/favicon-light.svg
-Windsurf Cascade: https://windsurf.com/favicon.ico
+Devin Desktop (formerly Windsurf): https://devin.ai/icon.png
 Replit Agent: https://replit.com/public/icons/favicon-prompt-192-rebrand.png
 Lovable: https://lovable.dev/favicon.ico
 Bolt: https://bolt.new/static/favicon.svg

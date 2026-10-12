@@ -152,7 +152,7 @@ body.mk-wide .toolbar.onerow{padding:0 6px}
 .il-main b{font-size:15px;font-weight:600}
 .il-strip{display:inline-flex;align-items:center;gap:7px;margin-top:4px;color:var(--muted);flex-wrap:wrap}
 .il-strip .pics{gap:7px;color:var(--muted)}
-.ilg{display:inline-flex}
+.ilg{display:inline-flex}.ilg-free{color:#15803d}.ilg-fm{color:#a16207}.ilg-paid{color:#1d4ed8}[data-theme=dark] .ilg-free{color:#4ade80}[data-theme=dark] .ilg-fm{color:#facc15}[data-theme=dark] .ilg-paid{color:#60a5fa}
 .il-x{margin-left:auto;color:var(--muted);display:inline-flex;flex:none}
 @media(min-width:901px){.il-main{flex-direction:row;align-items:center;gap:16px}.il-main b{font-size:15.5px}.il-strip{margin-top:0}.il-row{padding:11px 8px}}
 .keylist{margin:0 0 16px}
@@ -160,6 +160,25 @@ body.mk-wide .toolbar.onerow{padding:0 6px}
 .keyrow .keyg{display:inline-flex;color:var(--muted);flex:none;min-width:22px;justify-content:center;gap:5px}
 .keyrow b{flex:none}
 .keyrow .kw{color:var(--muted)}
+.pf-linkrow{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;padding:16px 0 4px}
+.pf-lkb{position:relative;width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--border);border-radius:10px;color:var(--muted);transition:color .15s,border-color .15s}
+.pf-lkb:hover,.pf-lkb:focus-visible{color:var(--ink);border-color:var(--muted)}
+.pf-lkb::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%) translateY(2px);background:var(--ink);color:var(--bg);font-size:11px;line-height:1;padding:4px 8px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;z-index:30}
+@media(hover:hover){.pf-lkb:hover::after,.pf-lkb:focus-visible::after{opacity:1;transform:translateX(-50%) translateY(0)}}
+.keytab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 7px;border:1px solid var(--border);border-right:none;border-radius:10px 0 0 10px;background:var(--panel);color:var(--muted);cursor:pointer;transition:color .15s,opacity .2s}
+.keytab:hover{color:var(--ink)}
+.keytab .vt{writing-mode:vertical-rl;font-size:9px;letter-spacing:.14em;text-transform:uppercase}
+.keytab.hide{opacity:0;pointer-events:none}
+.keyscrim{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;z-index:70}
+.keyscrim.open{opacity:1;visibility:visible}
+.keypanel{position:fixed;top:0;right:0;bottom:0;width:min(320px,86vw);background:var(--bg);border-left:1px solid var(--border);z-index:80;transform:translateX(105%);visibility:hidden;transition:transform .25s ease,visibility .25s;overflow-y:auto;padding:18px 18px 28px}
+.keypanel.open{transform:none;visibility:visible}
+.keypanel-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.keypanel-h h2{margin:0;font-size:15px}
+.keypanel-x{background:none;border:1px solid var(--border);border-radius:8px;color:var(--muted);width:30px;height:30px;font-size:15px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.keypanel-x:hover{color:var(--ink)}
+.keypanel .keyrow{flex-wrap:wrap;row-gap:2px}
+.keypanel .keyrow .kw{flex-basis:100%;margin-left:32px}
 
-/* Keep fact icons monochrome in the approved icon strip and its key. */
+/* Preserve grayscale platform facts while price $ icons carry their approved colors. */
 .il-strip .pi-android,.keyg .pi-android{color:inherit;fill:currentColor}
