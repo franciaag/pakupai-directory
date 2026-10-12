@@ -226,3 +226,24 @@ body.mk-wide .toolbar.onerow{padding:0 6px}
 .cv4 .card-bottom .pill:before{inset:0;border-radius:3px}
 html[data-theme=dark] .tested-card.cv4,html[data-theme=dark] .tested-card.cv4:hover{background:#000}
 body{overflow-x:clip}
+
+/* icon key v2: hairline handle that opens into a chip; compact panel */
+.keytab{top:50%;right:0;transform:translateY(-50%);width:4px;height:44px;padding:0;gap:0;justify-content:center;overflow:visible;border:1px solid var(--border);border-right:none;border-radius:3px 0 0 3px;background:var(--muted);opacity:.55;box-shadow:none;animation:kt-intro 4.2s ease;transition:width .18s,height .18s,background .18s,opacity .18s,border-radius .18s}
+.keytab .vt{display:none}.keytab svg{width:0;height:0;opacity:0;animation:kt-icon-intro 4.2s ease;transition:opacity .15s}
+.keytab::before{content:"";position:absolute;inset:-1px -2px -1px -40px}
+.keytab:hover,.keytab:focus-visible,.keytab:active{width:30px;height:30px;background:var(--bg);color:var(--ink);opacity:1;border-radius:8px 0 0 8px;animation:none}
+.keytab:hover svg,.keytab:focus-visible svg,.keytab:active svg{width:15px;height:15px;opacity:1;animation:none}
+@keyframes kt-intro{0%,70%{width:30px;height:30px;background:var(--bg);color:var(--muted);opacity:1;border-radius:8px 0 0 8px}100%{width:4px;height:44px;background:var(--muted);opacity:.55;border-radius:3px 0 0 3px}}
+@keyframes kt-icon-intro{0%,70%{width:15px;height:15px;opacity:1}100%{width:0;height:0;opacity:0}}
+.keytab.hide{opacity:0;pointer-events:none;animation:none}
+@media(prefers-reduced-motion:reduce){.keytab,.keytab svg{animation:none;transition:none}}
+.keypanel{width:min(292px,84vw);padding:14px 16px 20px;box-shadow:-12px 0 32px rgba(0,0,0,.12)}
+.keypanel-h{margin-bottom:6px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.keypanel-h h2{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.keypanel-x{width:26px;height:26px;border:none;font-size:18px}
+.keypanel .keylist{margin:0}
+.keypanel .keyrow{display:grid;grid-template-columns:auto 1fr;column-gap:9px;row-gap:2px;align-items:center;margin:0;padding:9px 0;border-bottom:1px solid var(--border)}
+.keypanel .keyrow:last-child{border-bottom:none}
+.keypanel .keyrow .keyg{justify-self:start;min-width:0;gap:6px}
+.keypanel .keyrow b{font-size:12.5px;font-weight:600;line-height:1.25}
+.keypanel .keyrow .kw{flex-basis:auto;margin:0;font-size:11.5px;line-height:1.35;grid-column:1/-1}
