@@ -144,3 +144,22 @@ body.mk-wide .toolbar.onerow{padding:0 6px}
 .toolbar.onerow .view-toggle{height:40px;box-sizing:border-box;padding:2px;border-radius:10px;margin-left:0;display:flex;align-items:center}
 .toolbar.onerow .view-toggle button{min-height:34px!important;height:34px!important;border-radius:8px}
 }
+.il{border-top:1px solid var(--border)}
+.il-row{display:flex;align-items:center;gap:10px;padding:9px 6px;border-bottom:1px solid var(--border);color:inherit;text-decoration:none}
+.il-row:hover{background:var(--hover);text-decoration:none}
+.il-row .icon{width:34px;height:34px;padding:4px;border-radius:9px}
+.il-main{display:flex;flex-direction:column;min-width:0;line-height:1.3;flex:1}
+.il-main b{font-size:15px;font-weight:600}
+.il-strip{display:inline-flex;align-items:center;gap:7px;margin-top:4px;color:var(--muted);flex-wrap:wrap}
+.il-strip .pics{gap:7px;color:var(--muted)}
+.ilg{display:inline-flex}
+.il-x{margin-left:auto;color:var(--muted);display:inline-flex;flex:none}
+@media(min-width:901px){.il-main{flex-direction:row;align-items:center;gap:16px}.il-main b{font-size:15.5px}.il-strip{margin-top:0}.il-row{padding:11px 8px}}
+.keylist{margin:0 0 16px}
+.keyrow{display:flex;align-items:center;gap:10px;margin:0 0 8px}
+.keyrow .keyg{display:inline-flex;color:var(--muted);flex:none;min-width:22px;justify-content:center;gap:5px}
+.keyrow b{flex:none}
+.keyrow .kw{color:var(--muted)}
+
+/* Keep fact icons monochrome in the approved icon strip and its key. */
+.il-strip .pi-android,.keyg .pi-android{color:inherit;fill:currentColor}
