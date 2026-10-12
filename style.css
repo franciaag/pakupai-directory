@@ -199,5 +199,30 @@ body.mk-wide .toolbar.onerow{padding:0 6px}
 .toolbar.onerow .nseg .search{align-items:center}
 @media (min-width:601px){.toolbar.onerow{gap:8px}.toolbar.onerow .nseg{height:30px;border-radius:10px}.toolbar.onerow .nseg button{height:25px;min-width:25px;padding:0 9px;font-size:12px}.toolbar.onerow .nseg button svg{width:14px;height:14px}.toolbar.onerow .nseg .search-btn{height:25px;min-width:25px}}
 
-/* Preserve grayscale platform facts while price $ icons carry their approved colors. */
+/* square tile cards */
+.tested-card.cv2{padding:10px 12px 8px;gap:5px}
+.cv2 .tested-link{display:flex;flex-direction:column;gap:5px;min-width:0}
+.cv2 .card-top{display:flex;align-items:center;gap:9px;min-width:0}
+.cv2 .icon{width:34px;height:34px;font-size:15px;border-radius:9px}
+.cv2 .card-top h3{margin:0;font-size:13.5px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cv2 .il-strip{display:flex;align-items:center;gap:5px;flex-wrap:nowrap;overflow:hidden;height:15px;line-height:1}
+.cv2 .il-strip .pil{display:inline-flex}
+.cv2 .card-capability{font-size:11.5px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cv2 .card-bottom{min-height:0;margin-top:2px;justify-content:flex-end}
+.cv2 .card-bottom .pill{padding:3px 11px;font-size:11px;min-height:0;border-radius:999px;width:100%;justify-content:center;display:flex}
+.tested-card.cv4{border-radius:2px;aspect-ratio:1/1;padding:12px 12px 10px}
+.cv4 .tested-link{flex:1;justify-content:space-evenly;gap:4px}
+.cv4 .icon{width:38px;height:38px;font-size:17px;border-radius:7px}
+.cv4 .card-capability{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cv4 .card-bottom .pill{border-radius:3px;padding:5px 11px;font-size:11.5px}
+@media (min-width:901px){.agent-cards:has(.cv4){grid-template-columns:repeat(5,1fr)}.cv4 .icon{width:44px;height:44px;font-size:19px}}
+
 .il-strip .pi-android,.keyg .pi-android{color:inherit;fill:currentColor}
+/* Keep square tiles contained and preserve usable Compare targets. */
+.cv4 .card-top{width:100%;overflow:hidden}
+.cv4 .card-top .icon{flex:none}
+.cv4 .card-top h3{min-width:0;flex:1;overflow-wrap:normal}
+.cv4 .card-bottom .pill{min-height:30px}
+.cv4 .card-bottom .pill:before{inset:0;border-radius:3px}
+html[data-theme=dark] .tested-card.cv4,html[data-theme=dark] .tested-card.cv4:hover{background:#000}
+body{overflow-x:clip}

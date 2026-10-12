@@ -60,7 +60,30 @@ Deno.serve(async req=>{
  }
  return J({error:'not_found'},404)
  }
- const viaOwner=await owner();
+ // Supabase user sessions never grant legacy access unless linked server-side.
+ async function profileUser(){
+  if(!token||!token.includes('.'))return null;
+  const r=await fetch(BASE+'/auth/v1/user',{headers:{apikey:SERVICE,authorization:'Bearer '+token}});
+  if(!r.ok)return null;const v=await r.json();return v.id? v:null;
+ }
+ async function legacyProfile(op:string,id:string){
+  const r=await fetch(BASE+'/rest/v1/rpc/pakupai_legacy_profile',{method:'POST',headers:{apikey:SERVICE,authorization:'Bearer '+SERVICE,'content-type':'application/json'},body:JSON.stringify({op,u:id})});
+  if(!r.ok)throw new Error('database');return r.json();
+ }
+ const passphraseOwner=await owner();
+ if(path==='/api/profile/legacy-link'&&method==='POST'){
+  const user=await profileUser();if(!user)return J({error:'sign_in_required'},401);
+  if(!passphraseOwner)return J({error:'current_owner_session_required'},403);
+  if(req.headers.get('x-room')!=='1'||b.confirm!==true)return J({error:'confirmation_required'},400);
+  const result=await legacyProfile('link',user.id);return J(result,result.error?409:200);
+ }
+ if(path==='/api/profile/legacy-status'&&method==='GET'){
+  const user=await profileUser();if(!user)return J({error:'sign_in_required'},401);
+  return J(await legacyProfile('status',user.id));
+ }
+ let viaOwner=passphraseOwner;
+ if(!viaOwner&&token.includes('.')){const user=await profileUser();if(user)viaOwner=(await legacyProfile('status',user.id)).linked===true;}
+
  if(path==='/api/library/ping')return J({ok:true,setup:!!c.library_auth});
  if(path.startsWith('/api/library/')){
  let allowed=viaOwner;if(!allowed&&token&&c.library_auth){const ip=await sha(c.secret+':'+(req.headers.get('x-forwarded-for')||'unknown'));if((await rpc('login_check',{scope:'library',ip})).blocked)return J({error:'locked'},429);allowed=eq(token,c.library_auth);if(!allowed)await rpc('login_fail',{scope:'library',ip})}
