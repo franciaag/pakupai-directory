@@ -225,7 +225,7 @@
       "Can use the browser and files",
       "You can add new skills"
     ],
-    "platform": "macOS, Windows and Linux; WhatsApp, Telegram and other channels.",
+    "platform": "Mac, Windows and Linux desktop apps, plus iPhone/iPad and Android companion apps. Mobile apps require a running OpenClaw Gateway. Also works through WhatsApp, Telegram and other chat apps.",
     "pricing": "No subscription and no hosted plan. You pay separately for the AI model, hosting and any other services.",
     "fit": "–",
     "pros": [
@@ -236,7 +236,9 @@
     ],
     "sources": [
       "https://openclaw.ai/",
-      "https://github.com/openclaw/openclaw"
+      "https://github.com/openclaw/openclaw",
+      "https://docs.openclaw.ai/platforms/android",
+      "https://apps.apple.com/us/app/openclaw/id6780396132"
     ],
     "checked": "11 October 2026",
     "social": [
@@ -270,6 +272,7 @@
       "apple",
       "windows",
       "linux",
+      "android",
       "terminal"
     ],
     "platformsSource": "https://openclaw.ai/",
@@ -281,7 +284,8 @@
     "storeLinks": {
       "apple": "https://github.com/openclaw/openclaw/releases",
       "linux": "https://github.com/openclaw/openclaw/releases",
-      "windows": "https://github.com/openclaw/openclaw-windows-node/releases"
+      "windows": "https://github.com/openclaw/openclaw-windows-node/releases",
+      "android": "https://play.google.com/store/apps/details?id=ai.openclaw.app"
     }
   },
   {
@@ -293,7 +297,7 @@
       "Web browsing",
       "Runs tasks in an isolated sandbox and can hand work to other agents"
     ],
-    "platform": "macOS 12 or later, Windows 10/11, Linux; messaging apps and the command line.",
+    "platform": "Mac and Windows desktop downloads; Linux install through the terminal. The Mac bootstrap installer requires Apple Silicon. Windows MSIX packages need Windows 11 22H2 or later; the website also offers a bootstrap EXE labeled Windows 10/11.",
     "pricing": "The software is free and open source (MIT license). AI models and optional hosted services cost extra.",
     "fit": "–",
     "pros": [
@@ -303,7 +307,9 @@
       "You must set up an AI model provider and a place for it to run. Always-on hosting is optional and costs extra."
     ],
     "sources": [
-      "https://hermes-agent.nousresearch.com"
+      "https://hermes-agent.nousresearch.com",
+      "https://hermes-agent.nousresearch.com/docs/getting-started/platform-support",
+      "https://hermes-agent.nousresearch.com/docs/getting-started/installation"
     ],
     "checked": "11 October 2026",
     "social": [
@@ -344,7 +350,7 @@
       "linux",
       "terminal"
     ],
-    "platformsSource": "https://hermes-agent.nousresearch.com",
+    "platformsSource": "https://hermes-agent.nousresearch.com/docs/getting-started/platform-support",
     "openSource": true,
     "license": "MIT",
     "priceKind": "freemium",
