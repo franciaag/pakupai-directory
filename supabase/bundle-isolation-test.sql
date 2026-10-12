@@ -1,0 +1,20 @@
+begin;
+insert into auth.users(id) values('00000000-0000-4000-8000-000000000001'),('00000000-0000-4000-8000-000000000002');
+set local role authenticated;
+select set_config('request.jwt.claim.sub','00000000-0000-4000-8000-000000000001',true);select public.pakupai_profile_bootstrap();
+select set_config('request.jwt.claim.sub','00000000-0000-4000-8000-000000000002',true);select public.pakupai_profile_bootstrap();
+reset role;
+insert into public.pakupai_library_files(id,workspace_id,name,body) select '30000000-0000-4000-8000-000000000001',id,'B private','B' from public.pakupai_workspaces where owner_id='00000000-0000-4000-8000-000000000002';
+set local role authenticated;
+select set_config('request.jwt.claim.sub','00000000-0000-4000-8000-000000000001',true);
+do $$declare w uuid;before_count integer;begin
+ select id into w from public.pakupai_workspaces where owner_id=auth.uid();
+ select count(*) into before_count from public.pakupai_library_bundles;
+ begin perform public.pakupai_create_bundle(w,'attempt',array['30000000-0000-4000-8000-000000000001'::uuid]);raise exception 'cross_owner_allowed';exception when foreign_key_violation then null;when insufficient_privilege then null;end;
+ if (select count(*) from public.pakupai_library_bundles)<>before_count then raise exception 'partial_bundle_left';end if;
+ perform public.pakupai_create_bundle(w,'empty',array[]::uuid[]);
+ begin insert into public.pakupai_library_files(workspace_id,name,body) values(w,'secret','password=not-a-real-secret-12345');raise exception 'secret_not_denied';exception when raise_exception then if sqlerrm='secret_not_denied' then raise;end if;end;
+end$$;
+reset role;
+select 'passed: atomic bundle, foreign-owner file denial, credential guard' tests;
+rollback;

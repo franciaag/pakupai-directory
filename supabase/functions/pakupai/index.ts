@@ -29,6 +29,38 @@ Deno.serve(async req=>{
  if(l.type==='agent')text=compose(s,s.bundles.find((b:any)=>b.id===s.agents.find((a:any)=>a.id===l.ref)?.bundleId)?.fileIds||[]);
  return new Response(text||'Not found',{status:text?200:404,headers:{...headers,'content-type':'text/markdown; charset=utf-8','access-control-allow-origin':'*'}})
  }
+ // New private workspaces use Supabase Auth, separately from legacy sessions.
+ if(path.startsWith('/api/workspace/')||path.startsWith('/api/workspace-agent/')||path==='/api/workspace-join'){
+  const token=(req.headers.get('authorization')||'').replace(/^Bearer\s+/,'');
+  let body:any={};if(method==='POST'){const raw=await req.text();if(raw.length>12000)return J({error:'too_large'},413);try{body=JSON.parse(raw||'{}')}catch{return J({error:'bad_request'},400)}}
+  const W=async(op:string,args:any)=>{const r=await fetch(BASE+'/rest/v1/rpc/pakupai_workspace_rpc',{method:'POST',headers:{apikey:SERVICE,authorization:'Bearer '+SERVICE,'content-type':'application/json'},body:JSON.stringify({op,args})});if(!r.ok)throw new Error('database');return r.json()};
+  const result=(r:any)=>J(r,r.error==='rate_limited'?429:r.error==='unauthorized'?401:r.error==='not_found'?404:r.error?403:200);
+  if(path==='/api/workspace-join'&&method==='POST'){
+   const invite=clip(body.invite,200),name=clip(body.name,60);if(!invite||!name)return J({error:'invite_and_name_required'},400);
+   const key=rnd(24,'wk'),id=crypto.randomUUID(),r=await W('join',{id,name,role:clip(body.role,120),key_hash:await sha(key),invite_hash:await sha(invite)});
+   return r.error?result(r):J({...r,api_key:key},201);
+  }
+  if(path.startsWith('/api/workspace-agent/')){
+   if(!token)return J({error:'unauthorized'},401);const hash=await sha(token);
+   if(path==='/api/workspace-agent/me'&&method==='GET')return result(await W('agent_me',{hash}));
+   if(path==='/api/workspace-agent/messages'&&method==='GET')return result(await W('agent_messages',{hash,after:Math.max(0,Number(u.searchParams.get('after'))||0)}));
+   if(path==='/api/workspace-agent/files'&&method==='GET')return result(await W('agent_files',{hash}));
+   if(path==='/api/workspace-agent/post'&&method==='POST'){const text=clip(body.text,6000);if(!text)return J({error:'text_required'},400);return result(await W('agent_post',{hash,text}))}
+   return J({error:'not_found'},404);
+  }
+  const ur=await fetch(BASE+'/auth/v1/user',{headers:{apikey:SERVICE,authorization:'Bearer '+token}});
+  if(!ur.ok)return J({error:'sign_in_required'},401);const user=await ur.json();
+  if(path==='/api/workspace/invites'&&method==='GET')return result(await W('invites',{user_id:user.id}));
+  if(path==='/api/workspace/invites'&&method==='POST'){
+   const invite=rnd(24,'wi'),id=crypto.randomUUID(),hours=Math.max(1,Math.min(168,Number(body.hours)||24));
+   const r=await W('invite',{user_id:user.id,id,hours,hash:await sha(invite),label:clip(body.label,60)});
+   return r.error?result(r):J({...r,invite,join_url:SITE+'/account/#join='+encodeURIComponent(invite)},201);
+  }
+  let match;
+  if(method==='POST'&&(match=/^\/api\/workspace\/invites\/([a-f0-9-]{36})\/revoke$/.exec(path)))return result(await W('revoke_invite',{user_id:user.id,id:match[1]}));
+  if(method==='POST'&&(match=/^\/api\/workspace\/agents\/([a-f0-9-]{36})\/(approve|decline|revoke)$/.exec(path)))return result(await W('transition',{user_id:user.id,id:match[1],action:match[2]}));
+  return J({error:'not_found'},404);
+ }
  const c=await rpc('context');
  const token=(req.headers.get('authorization')||'').replace(/^Bearer\s+/,'');
  const ownerToken=req.headers.get('x-owner-session')||token;
