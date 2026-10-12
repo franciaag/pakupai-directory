@@ -1,0 +1,61 @@
+Instinct: https://instinct.com/redesign/favicon.ico
+Muse (Meta): https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/af/57/95/af5795d9-c5ca-37e6-169b-0955aadbb98a/Placeholder.mill/400x400bb-75.webp | Verified on https://apps.apple.com/us/app/muse-from-meta/id6760173601
+Grok Bot: https://x.ai/bot | Verified on https://x.ai/bot
+Pickle: https://pickle.com/favicon.png
+OpenClaw: https://openclaw.ai/favicon.svg
+Hermes Agent: https://web-assets.nousresearch.com/portal/dc54c5c5a7fb196b5db0d1f424c12fb9f007e7bb/assets/hermes-agent/icon.png
+ChatGPT dots: https://images.ctfassets.net/8su2tbn87fck/PulStHeDuz5begF06sEwk/c2080ae53243122046ba61074a5f0bd2/dots-o-updated.svg | Verified on https://chatgpt.com/features/dots/
+Gemini Spark: https://www.gstatic.com/lamda/images/gemini_sparkle_4g_512_lt_f94943af3be039176192d.png
+Claude (formerly Cowork): https://claude.ai/apple-touch-icon.png
+Manus: https://manus.im/icon.svg?icon.2kbcs13ndm9it.svg
+Genspark Super Agent: https://www.genspark.ai/apple-touch-icon.png
+Skywork Super Agents: https://static-s3.skyworkcdn.com/prod-skywork-web-homepage-bundle/favicon.ico
+Alexa+: https://m.media-amazon.com/images/G/01/Metis/alexa-wordmark.png
+rabbit OS3 / rabbit agent: https://www.rabbit.tech/favicon.png
+Cue: https://cue.im/assets/cue/favicon.svg
+Tomo: https://www.tomo.ai/apple-icon.png?apple-icon.3i0nfbg5498-3.png
+Vellum for You: https://www.vellum.ai/favicon.svg
+Sai: https://www.sai.work/icon.svg?icon.17rro2c_l~1zm.svg?dpl=dpl_8HSZYrDdg95tCE7eCx4nAys4Vwnd
+Bardeen: https://cdn.prod.website-files.com/67a4e756231fbcd6386ec06a/68ef828ec51fd3fb419ea873_Bardeen-FavIcon.svg
+Lindy: https://www.lindy.ai/_sherpa/assets/static/lindy/69f7b166c2e11ba39f7b2b9e_lindy-avatar-favicon.png
+Goose: https://goose-docs.ai/img/favicon.ico
+Comet (Perplexity): https://www.perplexity.ai/apple-touch-icon.png
+Fellou: https://fellou.ai/favicon.ico
+Opera Neon: https://cdn-production-opera-website.operacdn.com/staticfiles/assets/neon/images/favicon/neon-safari-pinned-tab.2ff3aa479bec.svg
+Dia: https://www.diabrowser.com/favicon.svg
+ChatGPT browser / Work: https://learn.chatgpt.com/favicon.png
+Cortex Discover: https://pervaziv.com/wp-content/uploads/2024/12/cropped-logoOnly.png
+SigmaOS: https://framerusercontent.com/images/almQbXgcRPeHszIPCrTPJ07yKM.png
+Claude Code: https://assets.claude.com/95a868946ac8a31e5ff832e2899f294aa368b836.png?w=32&h=32
+Codex: https://developers.openai.com/favicon.png
+Cursor Agent: https://cursor.com/marketing-static/favicon-light.svg
+Windsurf Cascade: https://windsurf.com/favicon.ico
+Replit Agent: https://replit.com/public/icons/favicon-prompt-192-rebrand.png
+Lovable: https://lovable.dev/favicon.ico
+Bolt: https://bolt.new/static/favicon.svg
+Aider: https://aider.chat/assets/icons/apple-touch-icon.png
+OpenHands: https://www.openhands.dev/favicon.svg
+Cline: https://cline.bot/assets/branding/favicons/apple-touch-icon.png
+Google Antigravity: https://antigravity.google/favicon.svg
+OpenCode: https://opencode.ai/apple-touch-icon-v3.png
+Warp Agent CLI: https://www.warp.dev/apple-touch-icon-57x57.png
+caddy: https://caddy.app/apple-touch-icon.png
+comma: https://comma.surf/favicon-192.png
+fambot: https://fambot.com/favicon.ico
+folk: https://www.folk.com/icon.png?icon.0tm6cm9ilfrpn.png
+iris: https://framerusercontent.com/images/DE9UsbR7zT29K4c189EEmWNKvA.png
+martin: https://framerusercontent.com/images/CZTxbId2DTeb79XBU7xTouzDO9w.png
+miso: https://miso.com/assets/apple-touch-icon.png
+ohai: https://www.ohai.ai/images/favicon.ico
+ollie: https://ollie.ai/icon.png?icon.3_waqm-12p2g6.png
+orbits: https://tryorbits.com/android-chrome-192x192.png
+pally: https://pally.com/brand/app-icon.png?v=2
+poke: https://poke.com/icons/poke-192.png
+rene: https://rene.co/apple-touch-icon.png
+szn: https://theszn.ai/icon-192x192.png
+tab: https://tab.bot/favicon.png?v=20260821
+underdog: https://underdog.ai/icon.png?icon.24bs44pn4wl6c.png
+fo-by-wajo: https://wajo.ai/apple-touch-icon.png
+skye: https://skyeapp.ai/icon.png?icon.5d8168f0.png
+stanley: https://getstanley.ai/favicon.ico
+town: https://www.town.com/favicon.png

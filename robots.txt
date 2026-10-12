@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /room/
+Disallow: /api/
+
+Sitemap: https://everyday-edge.pages.dev/sitemap.xml
