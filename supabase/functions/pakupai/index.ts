@@ -16,8 +16,15 @@ Deno.serve(async req=>{
  if(method==='OPTIONS')return new Response(null,{status:204,headers});
  try{
  if(path==='/health'&&method==='GET'){
-  const r=await fetch(BASE+'/rest/v1/pakupai_profiles?select=user_id&limit=1',{headers:{apikey:SERVICE,authorization:'Bearer '+SERVICE}});
-  return J({ok:r.ok},r.ok?200:503);
+  const probe=async(url:string,options:RequestInit,valid:(d:any)=>boolean)=>{
+   try{const r=await fetch(url,{...options,signal:AbortSignal.timeout(5000)});return r.ok&&valid(await r.json())}catch{return false}
+  };
+  const [database,auth]=await Promise.all([
+   probe(BASE+'/rest/v1/rpc/pakupai_health_v1',{method:'POST',headers:{apikey:SERVICE,authorization:'Bearer '+SERVICE,'content-type':'application/json'},body:'{}'},d=>d?.ok===true),
+   probe(BASE+'/auth/v1/health',{headers:{apikey:SERVICE}},d=>d?.name==='GoTrue'&&typeof d?.version==='string')
+  ]);
+  const ok=database&&auth;
+  return J({ok,scope:'infrastructure',checks:{database,auth},user_workflows:'not_tested'},ok?200:503);
  }
  if(path==='/api/account/methods'||path==='/api/account/add-username'){
   const token=(req.headers.get('authorization')||'').replace(/^Bearer\s+/,'');
