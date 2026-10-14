@@ -1,0 +1,17 @@
+/* Pakupai motion finesse: only motion. No layout, color or type changes. */
+@media (prefers-reduced-motion:no-preference){
+::view-transition-group(root){animation-duration:.01s}
+.fz-vt[data-fz=route]::view-transition-old(root){animation:fz-out .22s ease-in both}
+.fz-vt[data-fz=route]::view-transition-new(root){animation:fz-in .46s cubic-bezier(.2,.7,.2,1) both}
+.fz-vt[data-fz=filter]::view-transition-old(root),.fz-vt[data-fz=filter]::view-transition-new(root){animation-duration:.18s}
+::view-transition-group(agent-logo){animation-duration:.56s;animation-timing-function:linear(0,.09 2.2%,.34 5.4%,.64 9.3%,.86 13.4%,1 17.5%,1.07 21%,1.09 24%,1.07 28%,1.03 33%,.995 40%,1 66%,1)}
+::view-transition-old(agent-logo),::view-transition-new(agent-logo){height:100%;object-fit:contain;animation-duration:.56s}
+[style*="view-transition-name: hop"]{z-index:1}
+::view-transition-group(*){animation-duration:.42s;animation-timing-function:cubic-bezier(.2,.7,.2,1)}
+::view-transition-group(root){animation-duration:.01s}
+.fz-theme::view-transition-old(root),.fz-theme::view-transition-new(root){animation:none;mix-blend-mode:normal}
+.fz-theme::view-transition-old(root){z-index:1}.fz-theme::view-transition-new(root){z-index:2}
+.il-row{position:relative;background-image:radial-gradient(180px circle at var(--fx,-999px) var(--fy,-999px),rgba(128,128,128,.14),transparent 70%);background-repeat:no-repeat}
+@keyframes fz-out{to{opacity:0;filter:blur(5px);transform:scale(.985)}}
+@keyframes fz-in{from{opacity:0;filter:blur(6px);transform:scale(1.012)}}
+}
